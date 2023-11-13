@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { createProduct, getCategories } from "./ApiAdmin";
 
 const AddProduct = () => {
-  const [isTyping, setIsTyping] = useState(false);
+  const [isTyping , setIsTyping] = useState(false);
   const [values, setValues] = useState({
     name: "",
     description: "",
@@ -26,13 +26,10 @@ const AddProduct = () => {
     description,
     price,
     categories,
-    category,
-    shipping,
     quantity,
     loading,
     error,
     createdProduct,
-    redirectToProfile,
     formData,
   } = values;
 

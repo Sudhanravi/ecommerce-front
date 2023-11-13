@@ -34,6 +34,8 @@ const Home = () => {
     loadProductsBySell();
   }, []);
 
+  console.log(error)
+
   return (
     <Layout
       title="Home Page"

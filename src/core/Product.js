@@ -32,6 +32,8 @@ const Product = (props) => {
     loadSingleProduct(productId);
   }, [productId]);
 
+  console.log(error)
+
   return (
     <Layout
       title={product && product.name}

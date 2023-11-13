@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import Layout from "../core/Layout";
 import { isAuthenticated } from "../auth";
-import { Link } from "react-router-dom";
 import { listOrders, getStatusValues, updateOrderStatus } from "./ApiAdmin";
 import moment from "moment";
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
   const [statusValues, setStatusValues] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [ordersPerPage] = useState(10); // Set the number of orders to display per page
 
   const { user, token } = isAuthenticated();
 
@@ -35,6 +36,12 @@ const Orders = () => {
     loadOrders();
     loadStatusValues();
   }, []);
+
+  const indexOfLastOrder = currentPage * ordersPerPage;
+  const indexOfFirstOrder = indexOfLastOrder - ordersPerPage;
+  const currentOrders = orders.slice(indexOfFirstOrder, indexOfLastOrder);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const showOrdersLength = () => {
     if (orders.length > 0) {
@@ -73,11 +80,12 @@ const Orders = () => {
         onChange={(e) => handleStatusChange(e, o._id)}
       >
         <option>Update status</option>
-        {statusValues && statusValues.map((status, index) => (
-          <option key={index} value={status}>
-            {status}
-          </option>
-        ))}
+        {statusValues &&
+          statusValues.map((status, index) => (
+            <option key={index} value={status}>
+              {status}
+            </option>
+          ))}
       </select>
     </div>
   );
@@ -91,7 +99,7 @@ const Orders = () => {
         <div className="col-md-6 offset-md-3">
           {showOrdersLength()}
 
-          {orders.map((o, oIndex) => {
+          {currentOrders.map((o, oIndex) => {
             return (
               <div
                 className="mt-5"
@@ -142,6 +150,48 @@ const Orders = () => {
               </div>
             );
           })}
+
+          {/* Pagination */}
+          <nav>
+            <ul className="pagination">
+              <li class="page-item">
+                <a
+                  onClick={() => paginate(currentPage - 1)}
+                  class="page-link"
+                  href="#"
+                >
+                  Previous
+                </a>
+              </li>
+              {Array.from({
+                length: Math.ceil(orders.length / ordersPerPage),
+              }).map((_, index) => (
+                <li
+                  key={index}
+                  className={`page-item ${
+                    currentPage === index + 1 ? "active" : ""
+                  }`}
+                >
+                  <a
+                    onClick={() => paginate(index + 1)}
+                    className="page-link"
+                    href="#"
+                  >
+                    {index + 1}
+                  </a>
+                </li>
+              ))}
+              <li class="page-item">
+                <a
+                  onClick={() => paginate(currentPage + 1)}
+                  class="page-link"
+                  href="#"
+                >
+                  Next
+                </a>
+              </li>
+            </ul>
+          </nav>
         </div>
       </div>
     </Layout>

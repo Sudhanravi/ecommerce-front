@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Layout from "./Layout";
+//import Layout from "./Layout";
 import {
-  getProducts,
   getBraintreeClientToken,
   processPayment,
   createOrder,
@@ -61,6 +60,7 @@ const Checkout = ({ products }) => {
   const deliveryAddress = data.address
 
   const buy = () => {
+    debugger;
     setData({ loading: true });
     //send the nonce to server
     //nonce = data.instance.requestPaymentMethod()
@@ -78,6 +78,8 @@ const Checkout = ({ products }) => {
           paymentMethodNonce: nonce,
           amount: getTotal(products),
         };
+ 
+        debugger;
 
         processPayment(userId, token, paymentData).then((response) => {
           console.log("response", response);
@@ -89,6 +91,7 @@ const Checkout = ({ products }) => {
             address: deliveryAddress,
           };
 
+          debugger;
           createOrder(userId, token, createOrderData)
             .then((response) => {
               emptyCart(() => {
@@ -121,7 +124,7 @@ const Checkout = ({ products }) => {
               placeholder="Type your delivery address here..."
             />
           </div>
-
+             
           <DropIn
             options={{
               authorization: data.clientToken,

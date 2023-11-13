@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Layout from "../core/Layout";
 import { isAuthenticated } from "../auth";
-import { Link, Navigate, useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 import { read, update, updateUser } from "./apiUser";
 
 const Profile = () => {
@@ -15,7 +15,7 @@ const Profile = () => {
   const { userId } = useParams();
   const { token } = isAuthenticated();
 
-  const { name, email, password, error, success } = values;
+  const { name, email, password, success } = values;
 
   const init = (userId) => {
     //console.log(userId)

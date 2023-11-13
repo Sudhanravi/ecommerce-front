@@ -1,7 +1,7 @@
-import React, { lazy, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "./Layout";
 import Card from "./Card";
-import { getCart, removeItem } from "./cartHelpers";
+import { getCart } from "./cartHelpers";
 import { Link } from "react-router-dom";
 import Checkout from "./Checkout";
 
@@ -54,7 +54,7 @@ const Cart = () => {
 
         <div className="col-6">
           <h3 className="mb-4">Your cart summary</h3>
-          <hr/>
+          <hr />
           <Checkout products={items} />
         </div>
       </div>

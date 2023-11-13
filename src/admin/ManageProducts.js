@@ -50,17 +50,22 @@ const ManageProducts = () => {
                 className="list-group-item d-flex justify-content-between align-items-center"
               >
                 <strong>{p.name}</strong>
-                <Link to={`/admin/product/update/${p._id}`}>
-                  <span className="badge badge-warning badge-pill">Update</span>
-                </Link>
-                <span
-                  onClick={() => {
-                    destroy(p._id);
-                  }}
-                  className="badge badge-danger badge-pill"
-                >
-                  Delete
-                </span>
+                <div>
+                    <Link to={`/admin/product/update/${p._id}`}>
+                      <span className="badge badge-warning badge-pill ml-3">
+                        Update
+                      </span>
+                    </Link>
+                  <span
+                    onClick={() => {
+                      destroy(p._id);
+                    }}
+                    className="badge badge-danger badge-pill"
+                    style={{cursor: "pointer"}}
+                  >
+                    Delete
+                  </span>
+                </div>
               </li>
             ))}
           </ul>
